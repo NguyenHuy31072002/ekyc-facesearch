@@ -1,0 +1,34 @@
+version: '3.7'
+services:
+  face_tf_serving:
+    image: tensorflow/serving
+    ports:
+      - 8501:8501
+      - 8500:8500
+    volumes:
+      - type: bind
+        source: ./serving/config/
+        target: /config/
+      - type: bind
+        source: ./serving/models/
+        target: /models/
+    command:
+      - --model_config_file=/config/docker_serve.config
+
+  face_service:
+    restart: on-failure
+    image: face_lvt:v2
+    environment:
+      CONFIG_MODE: Production
+      CUSTOM_CONFIG_PATH: /workspace/config/production.yml
+    volumes:
+      - type: bind
+        source: ./production.yml
+        target: /workspace/config/production.yml
+      - type: bind
+        source: ./logs
+        target: /workspace/logs
+    ports:
+      - "15000:15000"
+    depends_on:
+      - face_tf_serving

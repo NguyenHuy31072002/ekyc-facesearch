@@ -1,0 +1,51 @@
+version: 1
+formatters:
+  brief:
+    format: '%(asctime)s %(name)10s %(levelname)10s : %(message)s'
+  detailed:
+    format: 'time="%(asctime)s" logger="%(name)s" level="%(levelname)s" file="%(filename)s" lineno=%(lineno)d function="%(funcName)s" %(message)s'
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: brief
+    stream: ext://sys.stdout
+  file:
+    class : logging.handlers.TimedRotatingFileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: logs/computer_vision.log
+    backupCount: 7
+    interval: 1
+    when: D
+loggers:
+  driver:
+    level: WARNING
+    handlers:
+      - console
+      - file
+  api:
+    level: DEBUG
+    handlers:
+      - console
+      - file
+    propagate: no
+  model:
+    level: DEBUG
+    handlers:
+      - console
+      - file
+  mongo:
+    level: DEBUG
+    handlers:
+      - console
+      - file
+  es:
+    level: DEBUG
+    handlers:
+      - console
+      - file
+root:
+  level: WARNING
+  handlers:
+    - console

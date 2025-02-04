@@ -1,0 +1,51 @@
+DEBUG: true
+
+log_config_file: "logger.yaml"
+log_folder: "logs"
+log_images: "images"
+
+# ES database config
+enable_es: true
+api_log_index: "api_log"
+face_index: "face"
+es_hosts: ["172.16.0.155:9200"]
+
+# Mongo config
+enable_mongo: true
+mongo_host: "localhost"
+mongo_port: 27017
+mongo_username: "root"
+mongo_password: "lvT@123456"
+mongo_database: "people_face_image_test"
+mongo_collection: "people_test"
+
+# Face config
+similar_thresh_compare: 0.75
+similar_thresh_liveness: 0.6
+thresh_liveness: 0.6
+min_liveness: 1
+
+# Check action config
+thresh_action: 1
+
+thresh_up: -10
+thresh_down: 10
+thresh_left: 10
+thresh_right: -10
+thresh_tilting_left: 8
+thresh_tilting_right: -8
+thresh_blink: 5.0
+thresh_mouth: 0.7
+
+# face anti spoof
+face_anti_spoof_threshold: 0.9
+face_anti_spoof_image_size: 448
+
+# api config
+blueprints: []
+apis: ['face']
+
+# model serving config
+service_host: "172.16.1.36"
+service_port:  8500
+service_timeout: 10
